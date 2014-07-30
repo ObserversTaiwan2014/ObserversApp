@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.unity3d.player"
+	android:installLocation="preferExternal"
+	android:theme="@android:style/Theme.NoTitleBar"
+    android:versionCode="1"
+    android:versionName="1.0">
+  <supports-screens
+      android:smallScreens="true"
+      android:normalScreens="true"
+      android:largeScreens="true"
+      android:xlargeScreens="true"
+      android:anyDensity="true"/>
+
+  <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="19" />
+
+  <application
+  android:icon="@drawable/app_icon"
+      android:label="@string/app_name"
+      android:debuggable="true">
+    <activity android:name="com.unity3d.player.UnityPlayerNativeActivity" android:label="@string/app_name">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+    <meta-data android:name="unityplayer.UnityActivity" android:value="true" />
+      <meta-data android:name="unityplayer.ForwardNativeEventsToDalvik" android:value="true" />
+    </activity>
+
+    <!-- You only need to add this activity to the manifest -->
+    <activity android:name="com.ElicitIce.Plugin.ImagePicker" android:label="@string/app_name" >
+      <!-- remove the intent filters if you do not wish to add the ability to receive images from other apps -->
+      <!-- Remove Receiving Images -->
+      <intent-filter>
+        <action android:name="android.intent.action.SEND" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <data android:mimeType="image/*" />
+      </intent-filter>
+      <intent-filter>
+        <action android:name="android.intent.action.SEND_MULTIPLE" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <data android:mimeType="image/*" />
+      </intent-filter>
+      <!-- End Remove Receiving Images-->
+      <!-- Remove Receiving Texts-->
+      <intent-filter>
+        <action android:name="android.intent.action.SEND" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <data android:mimeType="text/plain" />
+      </intent-filter>
+      <intent-filter>
+        <action android:name="android.intent.action.SEND_MULTIPLE" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <data android:mimeType="text/plain" />
+      </intent-filter>
+      <!-- End Remove Receiving Texts-->
+    </activity>
+
+  </application>
+
+  <!-- We only need Read permissions as of version 8, if the plugin runs into write permission errors, please send an e-mail to me detailing the device, android version and logcat -->
+  <!-- To add write permissions, you can delete the READ permission and enable: <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> -->
+  <!--<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />-->
+  
+  <!-- For sharing with other applications the plugin currently requires a copy of the file in a public location (like the gallery), which means we need write permissions on the SD card -->
+  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />  
+
+  <!-- Seems to be completly OPTIONAL for all devices
+        Add these if you want to use the camera as well,
+        uses-feature with required="true" informs the playstore that your application DEMANDS a camera, and should not be offered on devices without one.
+    <uses-permission android:name="android.permission.CAMERA" />    
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
+    <uses-feature android:name="android.hardware.camera.autofocus" android:required="false" />
+    -->
+</manifest>
